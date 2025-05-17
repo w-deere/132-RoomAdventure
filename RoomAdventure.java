@@ -10,7 +10,7 @@ public class RoomAdventure {  // Main class containing game logic
 
     // class variables
     private static Room currentRoom;  // The room the player is currently in
-    private static String[] inventory = {null, null, null, null, null};  // Player inventory slots
+    private static String[] inventory = {null, null, null, null, null, null};  // Player inventory slots
     private static String status;  // Message to display after each action
 
     // constants                                 // Default error message
@@ -53,13 +53,23 @@ public class RoomAdventure {  // Main class containing game logic
                     if (inventory[j] == null) {         // If empty slot found
                         inventory [j] = noun;           // Add item to inventory
                         status = "Added it to the inventory.";      // Update status
-                        break;                                          
+                        break;                                         
                     }
                 }
             }
         }
     }
 
+    private static void handleDrop(String noun) {      // Handles dropping things
+        status = "You don't have that item.";          // Default message
+        for (int i = 0; i < inventory.length; i++) {   // Loop through inventory
+            if (noun.equals(inventory[i])) {           // If item matches
+                inventory[i] = null;                   // Remove it from inventory
+                status = "Dropped the item.";          // Update status
+                break;
+            }
+        }
+    }
 
     //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\\
     // Method: setupGame                                                                                                                          
@@ -264,6 +274,9 @@ public class RoomAdventure {  // Main class containing game logic
                     break;
                 case "take":                 // If verb is 'take'
                     handleTake(noun);
+                    break;
+                case "drop":
+                    handleDrop(noun);
                     break;
                 default:
                     status = DEFAULT_STATUS; // Set status to error message    
