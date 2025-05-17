@@ -71,6 +71,10 @@ public class RoomAdventure {  // Main class containing game logic
         Room room2 = new Room("Room 2");  // Create Room 2
         Room room3 = new Room("Room 3");  // Create Room 3
         Room room4 = new Room("Room 4");  // Create Room 4 
+        Room room5 = new Room("Room 5");  // Create Room 5
+        Room room6 = new Room("Room 6");  // Create Room 6
+        Room room7 = new Room("Room 7");  // Create Room 7
+        Room room8 = new Room("Room 8");  // Create Room 8
 
 
         // Room 1 Config \\
@@ -111,7 +115,7 @@ public class RoomAdventure {  // Main class containing game logic
 
         // Room 3 Config \\
         /* ###################################################################################### */
-        String[] room3ExitDirections = {"west", "south"}; // Room 3 exits
+        String[] room3ExitDirections = {"west", "north"}; // Room 3 exits
         Room[] room3ExitDestinations = {room2, room4};    // Destination rooms for Room 3
         String[] room3Items = {"bookshelf", "painting"};  // Items in Room 3
         String[] room3ItemDescriptions = {                // Descriptions for Room 3 items
@@ -129,10 +133,10 @@ public class RoomAdventure {  // Main class containing game logic
 
         // Room 4 Config \\
         /* ###################################################################################### */
-        String[] room4ExitDirections = {"north"};      // Room 4 exits
-        Room[] room4ExitDestinations = {room3};        // Destination rooms for Room 4
-        String[] room4Items = {"cabinet", "mirror"};   // Items in Room 4
-        String[] room4ItemDescriptions = {             // Descriptions for Room 4 items
+        String[] room4ExitDirections = {"south", "north"};      // Room 4 exits
+        Room[] room4ExitDestinations = {room3, room5};          // Destination rooms for Room 4
+        String[] room4Items = {"cabinet", "mirror"};            // Items in Room 4
+        String[] room4ItemDescriptions = {                      // Descriptions for Room 4 items
             "The cabinet is missing all of its drawers, and is quite dusty", 
             "The mirror is cracked full of shards. Your reflection blinks, but you didn't..."    
         };
@@ -141,8 +145,81 @@ public class RoomAdventure {  // Main class containing game logic
         room4.setExitDestinations(room4ExitDestinations);
         room4.setItems(room4Items);
         room4.setItemDescriptions(room4ItemDescriptions);
-        room4.setGrabbables(room4Grabbables);           // Set grabbable items
+        room4.setGrabbables(room4Grabbables);                    // Set grabbable items
         /* ###################################################################################### */
+
+        
+        // Room 5 Config \\
+        /* ###################################################################################### */
+        String[] room5ExitDirections = {"south", "east"};    // Room 5 exits
+        Room[] room5ExitDestinations = {room4, room6};       // Destination rooms for Room 5
+        String[] room5Items = {"statue", "wall"};            // Items in Room 5
+        String[] room5ItemDescriptions = {                   // Descriptions for Room 5 items
+            "A marble statue with a missing hand.",
+            "The wall has a knife-pinned note that reads: 'What's 1000 - 7?' "
+        };
+        String[] room5Grabbables = {"note"}; 
+        room5.setExitDirections(room5ExitDirections);
+        room5.setExitDestinations(room5ExitDestinations);
+        room5.setItems(room5Items);
+        room5.setItemDescriptions(room5ItemDescriptions);
+        room5.setGrabbables(room5Grabbables);
+        /* ###################################################################################### */
+
+
+        // Room 6 Config \\
+        /* ###################################################################################### */
+        String[] room6ExitDirections = {"west", "east"};      // Room 6 exits
+        Room[] room6ExitDestinations = {room5, room7};        // Destination rooms for Room 6
+        String[] room6Items = {"table", "cupboard"};          // Items in Room 6
+        String[] room6ItemDescriptions = {                    // Descriptions for Room 6 items
+            "The table is scratched and stained. A marble hand lays on a plate.",
+            "Inside is a cup, chipped and full of dust."
+        };
+        String[] room6Grabbables = {"cup", "hand"}; 
+        room6.setExitDirections(room6ExitDirections);
+        room6.setExitDestinations(room6ExitDestinations);
+        room6.setItems(room6Items);
+        room6.setItemDescriptions(room6ItemDescriptions);
+        room6.setGrabbables(room6Grabbables);
+        /* ###################################################################################### */
+
+
+        // Room 7 Config \\
+        /* ###################################################################################### */
+        String[] room7ExitDirections = {"west", "south"};  // Room 7 exits
+        Room[] room7ExitDestinations = {room6, room8};     // Destination rooms for Room 7
+        String[] room7Items = {"books", "lantern"};        // Items in Room 7
+        String[] room7ItemDescriptions = {                 // Descriptions for Room 7 items
+            "Books are scattered and torn.",
+            "The lantern flickers despite having no fuel."
+        };
+        String[] room7Grabbables = {"lantern"}; 
+        room7.setExitDirections(room7ExitDirections);
+        room7.setExitDestinations(room7ExitDestinations);
+        room7.setItems(room7Items);
+        room7.setItemDescriptions(room7ItemDescriptions);
+        room7.setGrabbables(room7Grabbables);
+        /* ###################################################################################### */
+
+
+        // Room 8 Config \\
+        /* ###################################################################################### */
+        String[] room8ExitDirections = {"north"};      // Room 8 exits
+        Room[] room8ExitDestinations = {room7};        // Destination rooms for Room 8
+        String[] room8Items = {"door", "bed"};         // Items in Room 8
+        String[] room8ItemDescriptions = {             // Descriptions for Room 8 items
+            "The door is rusted shut.",
+            "The bed is ancient, but perfectly made. A thin layer of dust coats the top, and beneath the pillow you spot a dagger."
+        };
+        String[] room8Grabbables = {"dagger"}; 
+        room8.setExitDirections(room8ExitDirections);
+        room8.setExitDestinations(room8ExitDestinations);
+        room8.setItems(room8Items);
+        room8.setItemDescriptions(room8ItemDescriptions);
+        room8.setGrabbables(room8Grabbables);
+        /* ###################################################################################### */
+
 
         currentRoom = room1; // Start game in Room 1
 
