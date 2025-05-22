@@ -1,12 +1,13 @@
 //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\\
 // Members: William Deere - Rooms 3-8, handleDrop method
-//          Drew Sylve - visual for items when picked up, 
+//          Drew Sylve - visual for items when picked up, handleInspect method
 //          RJ - 
 //          Rajan - 
 // Date: 5/16/2025
 // Assignment: Pi Activity - Room Adventure
 //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\\
 
+import java.io.DataInputStream;
 import java.util.Scanner;  // Import Scanner for reading user input
 
 public class RoomAdventure {  // Main class containing game logic
@@ -90,6 +91,15 @@ public class RoomAdventure {  // Main class containing game logic
             }
         }
     }
+    private static void handleInspect(String noun) {
+    status = "You dont have that item";
+    for (String item : inventory) {
+        if (noun.equals(item)) {
+            status = "You inspect the " + noun + ".\n" + getAsciiArt(item);
+            return;
+        }
+    }
+}
 
     //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\\
     // Method: setupGame                                                                                                                          
@@ -297,6 +307,9 @@ public class RoomAdventure {  // Main class containing game logic
                     break;
                 case "drop":
                     handleDrop(noun);
+                    break;
+                case "inspect":
+                    handleInspect(noun);
                     break;
                 default:
                     status = DEFAULT_STATUS; // Set status to error message    
