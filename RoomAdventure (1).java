@@ -21,7 +21,7 @@ public class RoomAdventure { // Main class containing game logic
     private static int Stamina; // Players stamina
 
     // constants // Default error message
-    final private static String DEFAULT_STATUS = "Sorry, I do not understand. Try [verb] [noun]. Valid verbs include 'go', 'look', and 'take'.";
+    final private static String DEFAULT_STATUS = "Sorry, I do not understand. Try [verb] [noun]. Valid verbs include 'go', 'look', 'take', 'drop', 'use', and 'inspect'.";
 
     // ─── 1. Add two new class‑level fields in RoomAdventure ─────────────
     // ← which room ends the game?
