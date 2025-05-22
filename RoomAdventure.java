@@ -1,7 +1,7 @@
 //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\\
 // Members: William Deere - Rooms 3-8, handleDrop method
 //          Drew Sylve - visual for items when picked up, handleInspect method
-//          RJ - Added the ability to use some items and item interactions, added stamina to limit amount of things player can do in one room
+//          RJ - 
 //          Rajan - 
 // Date: 5/16/2025
 // Assignment: Pi Activity - Room Adventure
@@ -9,7 +9,6 @@
 
 import java.io.DataInputStream;
 import java.util.Scanner;  // Import Scanner for reading user input
-import java.util.Arrays;
 
 public class RoomAdventure {  // Main class containing game logic
 
@@ -17,7 +16,6 @@ public class RoomAdventure {  // Main class containing game logic
     private static Room currentRoom;  // The room the player is currently in
     private static String[] inventory = {null, null, null, null, null, null};  // Player inventory slots
     private static String status;  // Message to display after each action
-    private static int Stamina; // Players stamina
 
     // constants                                 // Default error message
     final private static String DEFAULT_STATUS = "Sorry, I do not understand. Try [verb] [noun]. Valid verbs include 'go', 'look', and 'take'."; 
@@ -35,8 +33,6 @@ public class RoomAdventure {  // Main class containing game logic
             return "  /\\\n ||\n ||\n ||\n ||\n ||\n/==\\\nDagger";
         case "lantern":
             return "  .-.\n (   )\n  '-' \n  ||| \n Lantern";
-        case "Drink":
-            return "|   |\n|   |\n|   |";
         default:
             return "";  // No visual if item doesn't have art
         }
@@ -54,7 +50,6 @@ public class RoomAdventure {  // Main class containing game logic
             if (noun.equals(exitDirections[i])) {          // If user direction matches
                 currentRoom = exitDestinations[i];         // Change current room
                 status = "Changed Room";                   // Update status 
-                Stamina = 3;                               // Reset users stamina
             }
         }
     }
@@ -76,14 +71,10 @@ public class RoomAdventure {  // Main class containing game logic
         for (String item : grabbables) {    // Loop through grabbable items
             if (noun.equals(item)) {        // If item matches noun
                 for (int j = 0; j< inventory.length; j++){          // Loop through inventory slots
-                    if (inventory[j] == null & Stamina > 0) {         // If empty slot found and player has stamina
+                    if (inventory[j] == null) {         // If empty slot found
                         inventory [j] = noun;           // Add item to inventory
                         status = "Added it to the inventory.\n"+getAsciiArt(item);      // Update status
-                        Stamina -= 1;
                         break;                                         
-                    } else if(Stamina == 0) {
-                        status = "You dont have enough stamina, go to the next room";
-                        break;
                     }
                 }
             }
@@ -97,33 +88,6 @@ public class RoomAdventure {  // Main class containing game logic
                 inventory[i] = null;                   // Remove it from inventory
                 status = "Dropped the item.";          // Update status
                 break;
-            }
-        }
-    }
-    private static void handleUse(String noun) {
-        status = "You dont have that item";
-        if(Arrays.asList(inventory).contains(noun)) {
-            if(noun.equals("Drink")) {
-                Stamina += 1;
-                status = "You have regained your stamina";
-                handleDrop(noun);
-            } else if(noun.equals("coal")) {
-                String[] items = currentRoom.getItems();    // Visible items in current room
-                status = "Not usable in this room";         // Default if item not found
-                for (int i = 0; i < items.length; i++) {   // Loop through items
-                    if (items[i].equals("fireplace")) {
-                            String[] itemDescUpdate = currentRoom.getItemDescriptions();
-                            itemDescUpdate[0] = "The fire burns brighter than ever.";
-                            currentRoom.setItemDescriptions(itemDescUpdate);
-                            status = "Threw the coal into the fireplace";
-                            handleDrop(noun);
-                            break;
-                    }      
-            } 
-            } else if(noun.equals("book")) {
-                status = "You have gained one total stamina";
-                Stamina = 4;
-                handleDrop(noun);
             }
         }
     }
@@ -211,13 +175,12 @@ public class RoomAdventure {  // Main class containing game logic
         /* ###################################################################################### */
         String[] room4ExitDirections = {"south", "north"};      // Room 4 exits
         Room[] room4ExitDestinations = {room3, room5};          // Destination rooms for Room 4
-        String[] room4Items = {"cabinet", "mirror", "Drink"};            // Items in Room 4
+        String[] room4Items = {"cabinet", "mirror"};            // Items in Room 4
         String[] room4ItemDescriptions = {                      // Descriptions for Room 4 items
             "The cabinet is missing all of its drawers, and is quite dusty", 
-            "The mirror is cracked full of shards. Your reflection blinks, but you didn't...",
-            "There is an unused drink, maybe you can use this as refreshment later"  
+            "The mirror is cracked full of shards. Your reflection blinks, but you didn't..."    
         };
-        String[] room4Grabbables = {"shard", "Drink"}; 
+        String[] room4Grabbables = {"shard"}; 
         room4.setExitDirections(room4ExitDirections);
         room4.setExitDestinations(room4ExitDestinations);
         room4.setItems(room4Items);
@@ -310,7 +273,6 @@ public class RoomAdventure {  // Main class containing game logic
 
     public static void main(String[] args) {             // Entry point of the program
         setupGame();                                     // Initilaize rooms, items, and starting room
-        Stamina = 3;                                     
         while (true) {                                   // Game loop, runs until orogram is terminated
             System.out.print(currentRoom.toString());    // Display current room description
             System.out.print("Inventory: ");           // Prompt for inventory display
@@ -318,7 +280,6 @@ public class RoomAdventure {  // Main class containing game logic
             for (int i = 0; i < inventory.length; i++) { // Loop through inventory slots
                 System.out.print(inventory[i] + " ");    // Print each inventory item
             }
-            System.out.print("\nStamina: " + Stamina);
 
             System.out.println("\nWhat would you like to do? ");   // Prompt user for next action
 
@@ -349,9 +310,6 @@ public class RoomAdventure {  // Main class containing game logic
                     break;
                 case "inspect":
                     handleInspect(noun);
-                    break;
-                case "use":
-                    handleUse(noun);
                     break;
                 default:
                     status = DEFAULT_STATUS; // Set status to error message    
