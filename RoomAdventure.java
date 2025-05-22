@@ -1,6 +1,6 @@
 //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\\
 // Members: William Deere - Rooms 3-8, handleDrop method
-//          Drew Sylve - 
+//          Drew Sylve - visual for items when picked up, 
 //          RJ - 
 //          Rajan - 
 // Date: 5/16/2025
@@ -19,7 +19,24 @@ public class RoomAdventure {  // Main class containing game logic
     // constants                                 // Default error message
     final private static String DEFAULT_STATUS = "Sorry, I do not understand. Try [verb] [noun]. Valid verbs include 'go', 'look', and 'take'."; 
 
-
+    //method for item visuals
+    private static String getAsciiArt(String itemName) {
+    switch (itemName) {
+        case "key":
+            return "  __\n /o \\_____ \n \\__/-='='`\n    Key"; 
+        case "coal":
+            return "  ( )\n (   )\n(     )\n  Coal";
+        case "book":
+            return " _______\n/      /,\n\\_____/ / \n     /_/  \n   Book";
+        case "dagger":
+            return "  /\\\n ||\n ||\n ||\n ||\n ||\n/==\\\nDagger";
+        case "lantern":
+            return "  .-.\n (   )\n  '-' \n  ||| \n Lantern";
+        default:
+            return "";  // No visual if item doesn't have art
+        }
+    }
+    
     //|||||||||||||||||||||||||||||||||||\\
     // Method: handle{verb}                                                                                                                       
     // Purpose: Processes player actions    
@@ -55,7 +72,7 @@ public class RoomAdventure {  // Main class containing game logic
                 for (int j = 0; j< inventory.length; j++){          // Loop through inventory slots
                     if (inventory[j] == null) {         // If empty slot found
                         inventory [j] = noun;           // Add item to inventory
-                        status = "Added it to the inventory.";      // Update status
+                        status = "Added it to the inventory.\n"+getAsciiArt(item);      // Update status
                         break;                                         
                     }
                 }
